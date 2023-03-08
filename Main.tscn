@@ -1,0 +1,78 @@
+[gd_scene load_steps=6 format=3 uid="uid://bq2831ydfwl2b"]
+
+[ext_resource type="PackedScene" uid="uid://ck8jgmqqy8mu5" path="res://Player.tscn" id="1_av6xq"]
+[ext_resource type="Script" path="res://Main.gd" id="1_q12ue"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rn37u"]
+size = Vector2(640, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_10ahy"]
+size = Vector2(20, 978)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tdk5s"]
+size = Vector2(688, 26)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_q12ue")
+rows = 3
+
+[node name="Player" parent="." instance=ExtResource("1_av6xq")]
+position = Vector2(320, 888)
+speed = 800
+
+[node name="Bounds" type="Node2D" parent="."]
+
+[node name="WallUp" type="StaticBody2D" parent="Bounds" groups=["wall_up"]]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/WallUp"]
+position = Vector2(320, -8)
+shape = SubResource("RectangleShape2D_rn37u")
+
+[node name="WallLeft" type="StaticBody2D" parent="Bounds" groups=["wall_side"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/WallLeft"]
+position = Vector2(-16, 480)
+shape = SubResource("RectangleShape2D_10ahy")
+
+[node name="WallRight" type="StaticBody2D" parent="Bounds" groups=["wall_side"]]
+position = Vector2(648, 0)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/WallRight"]
+position = Vector2(0, 479)
+shape = SubResource("RectangleShape2D_10ahy")
+
+[node name="Bricks" type="Node2D" parent="."]
+
+[node name="GameOver" type="StaticBody2D" parent="." groups=["death"]]
+visible = false
+position = Vector2(208, 976)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameOver"]
+position = Vector2(112, 3)
+shape = SubResource("RectangleShape2D_tdk5s")
+debug_color = Color(0.992157, 0, 0.266667, 0.419608)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 128.0
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Score: 0"
+
+[node name="Label2" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 432.0
+offset_right = 628.0
+offset_bottom = 26.0
+text = "Best: 0"
+horizontal_alignment = 2
+
+[node name="Balls" type="Node2D" parent="."]
