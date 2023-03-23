@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://chobk7tgvqiie"]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Texture2D" uid="uid://bje3ilhpe4bcp" path="res://icon.svg" id="1_7h7ts"]
-[ext_resource type="Script" path="res://Brick.gd" id="1_yq51i"]
+[ext_resource type="Script" path="res://scripts/Brick.gd" id="1_yq51i"]
 
 [node name="Brick" type="StaticBody2D" groups=["brick"]]
 script = ExtResource("1_yq51i")

@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://djle316l3gpe4"]
+[gd_scene load_steps=6 format=3 uid="uid://dh66wd7gbudli"]
 
-[ext_resource type="Script" path="res://Ball.gd" id="1_vf8fj"]
-[ext_resource type="Texture2D" uid="uid://bje3ilhpe4bcp" path="res://icon.svg" id="1_wgc4k"]
-[ext_resource type="AudioStream" uid="uid://b1sad802r8x06" path="res://bonk.mp3" id="3_3wy83"]
+[ext_resource type="Script" path="res://scripts/Ball.gd" id="1_8xhoc"]
+[ext_resource type="Texture2D" uid="uid://bje3ilhpe4bcp" path="res://icon.svg" id="2_fwyca"]
+[ext_resource type="AudioStream" uid="uid://b1sad802r8x06" path="res://bonk.mp3" id="3_ikopr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kvosf"]
 radius = 16.0
@@ -15,23 +15,24 @@ orbit_velocity_max = 0.0
 turbulence_enabled = true
 turbulence_noise_strength = 18.37
 
-[node name="Ball" type="CharacterBody2D"]
+[node name="Ball" type="CharacterBody2D" groups=["ball"]]
 position = Vector2(320, 448)
-script = ExtResource("1_vf8fj")
+script = ExtResource("1_8xhoc")
+ball_speed = 5
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_wgc4k")
+texture = ExtResource("2_fwyca")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kvosf")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_3wy83")
+stream = ExtResource("3_ikopr")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="." groups=["ball"]]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 visible = false
 scale = Vector2(0.1, 0.1)
 process_material = SubResource("ParticleProcessMaterial_6ln3e")
-texture = ExtResource("1_wgc4k")
+texture = ExtResource("2_fwyca")

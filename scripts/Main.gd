@@ -7,11 +7,14 @@ var score: int = 0
 const BRICK_COLORS = [Color("#f00"), Color("#0f0"), Color("#00f"), 
 		Color("#ff0"), Color("#f0f"), Color("#0ff")]
 
-var brick = preload("res://Brick.tscn")
-var ball = preload("res://Ball.tscn")
+@export var rave_mode: bool = false
+
+var brick = preload("res://scenes/Brick.tscn")
+var ball = preload("res://scenes/Ball.tscn")
 
 @onready var brick_container = $Bricks
 @onready var balls = $Balls
+@onready var player = $Player
 @onready var rngesus = RandomNumberGenerator.new()
 
 func _ready() -> void:
@@ -23,18 +26,20 @@ func _ready() -> void:
 
 
 func _process(_delta):
-	var kids = $Bricks.get_child_count() # no dzieci?
-	if kids == 0:
-		generate_bricks(rows + 1)
-	#var kids_balls = $Balls.get_child_count()
-	#if kids_balls == 0:
-	#	get_tree().reload_current_scene()
+	if rave_mode:
+		for b in brick_container.get_children():
+			b.modulate = BRICK_COLORS[randi_range(0, 5)]
+	if $Bricks.get_child_count() == 0:
+		rows += 1
+		generate_bricks(rows)
+	if $Balls.get_child_count() == 0:
+		get_tree().reload_current_scene()
 
 
 func generate_bricks(_rows: int) -> void:
-	for ball in balls.get_children():
-		ball.queue_free()
-	for i in range(50):
+	for b in balls.get_children():
+		b.queue_free()
+	for i in range(10):
 		for k in range(_rows):
 			var brick_instance = brick.instantiate()
 			brick_instance.position = Vector2(64 * i + 32, 64 * k + 32)
@@ -45,9 +50,8 @@ func generate_bricks(_rows: int) -> void:
 
 func create_ball() -> void:
 	var ball_instance = ball.instantiate()
-	ball_instance.position = Vector2(400 + randi_range(-120, 120), 600)
-	ball_instance.velocity.x = randf_range(-1.0, 1.0)
-	self.add_child(ball_instance)
+	ball_instance.position = player.position + Vector2(randi_range(-120, 120), -40)
+	balls.add_child(ball_instance)
 
 
 func update_score(points: int):
@@ -62,3 +66,5 @@ func update_score(points: int):
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("spacja"):
 		create_ball()
+	if event.is_action_pressed("rave_mode"):
+		rave_mode = not rave_mode

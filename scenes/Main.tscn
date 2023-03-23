@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bq2831ydfwl2b"]
+[gd_scene load_steps=6 format=3 uid="uid://bkeprt7s7k53m"]
 
-[ext_resource type="PackedScene" uid="uid://ck8jgmqqy8mu5" path="res://Player.tscn" id="1_av6xq"]
-[ext_resource type="Script" path="res://Main.gd" id="1_q12ue"]
+[ext_resource type="Script" path="res://scripts/Main.gd" id="1_0efrd"]
+[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="1_av6xq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rn37u"]
 size = Vector2(640, 20)
@@ -13,8 +13,8 @@ size = Vector2(20, 978)
 size = Vector2(688, 26)
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_q12ue")
-rows = 3
+script = ExtResource("1_0efrd")
+rows = 4
 
 [node name="Player" parent="." instance=ExtResource("1_av6xq")]
 position = Vector2(320, 888)
@@ -23,6 +23,7 @@ speed = 800
 [node name="Bounds" type="Node2D" parent="."]
 
 [node name="WallUp" type="StaticBody2D" parent="Bounds" groups=["wall_up"]]
+position = Vector2(0, -2)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/WallUp"]
@@ -32,11 +33,11 @@ shape = SubResource("RectangleShape2D_rn37u")
 [node name="WallLeft" type="StaticBody2D" parent="Bounds" groups=["wall_side"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/WallLeft"]
-position = Vector2(-16, 480)
+position = Vector2(-10, 471)
 shape = SubResource("RectangleShape2D_10ahy")
 
 [node name="WallRight" type="StaticBody2D" parent="Bounds" groups=["wall_side"]]
-position = Vector2(648, 0)
+position = Vector2(650, -8)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds/WallRight"]
@@ -46,8 +47,7 @@ shape = SubResource("RectangleShape2D_10ahy")
 [node name="Bricks" type="Node2D" parent="."]
 
 [node name="GameOver" type="StaticBody2D" parent="." groups=["death"]]
-visible = false
-position = Vector2(208, 976)
+position = Vector2(208, 969)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameOver"]
